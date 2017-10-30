@@ -1,3 +1,5 @@
+import sys
+
 def mergeSort(arr):
     comparisons = 0
     if len(arr) > 1:
@@ -34,4 +36,24 @@ def mergeSort(arr):
         while j < len(rightArr):
             arr[k] = rightArr[j]
             j+=1
+    return comparisons
+
+def quickSort(arr):
+    #Increased the recursion depth for large arrays
+    sys.setrecursionlimit(10000)
+    comparisons = 0
+    less,equal,greater = [],[],[]
+    if len(arr) > 1:
+        pivot = arr[0]
+        for x in arr:
+            comparisons += 1
+            if x < pivot:
+                less.append(x)
+            elif x == pivot:
+                equal.append(x)
+            elif x > pivot:
+                greater.append(x)
+        comparisons += quickSort(less)
+        comparisons += quickSort(greater)
+        arr = less + equal + greater
     return comparisons
